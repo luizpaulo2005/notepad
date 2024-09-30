@@ -17,7 +17,7 @@ interface NoteProps {
 
 const Note = ({ id, title, content, createdAt }: NoteProps) => {
   return (
-    <div className="min-w-64 max-w-96 max-h-[400px] flex flex-col gap-4">
+    <div className="min-w-64 w-full max-w-96 max-h-[400px] flex flex-col gap-4">
       <div className="bg-zinc-300 dark:bg-zinc-800 h-56 p-4 rounded-lg shadow-md flex flex-col justify-between">
         <div>
           <h3 className="text-lg font-semibold">{title}</h3>
