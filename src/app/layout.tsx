@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthProvider, ThemeProvider } from "@/app/providers";
+import { AuthProvider, QueryProvider, ThemeProvider } from "@/app/providers";
 import { Navbar } from "@/components/navbar/navbar";
 import { client } from "@/lib/postgres-client";
 
@@ -30,12 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <AuthProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <body className="antialiased !p-4">
-            <Navbar />
-            {children}
-          </body>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <body className="antialiased !p-4 min-h-screen min-w-screen">
+              <Navbar />
+              {children}
+            </body>
+          </ThemeProvider>
+        </QueryProvider>
       </AuthProvider>
     </html>
   );
