@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -39,26 +40,28 @@ const User = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <UserAvatar name={user.name} image={user.image} />
+          <UserAvatar name={user.name} image={user.image} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem
-          disabled
-          className="flex items-center gap-1 max-w-40 truncate"
-        >
-          <UserIcon className="size-4 shrink-0" />
-          {user?.name}
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <ToggleThemeButton />
-        <DropdownMenuItem
-          onClick={() => signOut()}
-          className="flex items-center gap-2"
-        >
-          <LogOut className="size-4" />
-          Sair
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+      <DropdownMenuPortal>
+        <DropdownMenuContent side="left" className="mt-4 mr-2">
+          <DropdownMenuItem
+            disabled
+            className="flex items-center gap-1 max-w-40 truncate"
+          >
+            <UserIcon className="size-4 shrink-0" />
+            <span className="max-w-24 truncate">{user?.name}</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <ToggleThemeButton />
+          <DropdownMenuItem
+            onClick={() => signOut()}
+            className="flex items-center gap-2"
+          >
+            <LogOut className="size-4" />
+            Sair
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
     </DropdownMenu>
   );
 };
