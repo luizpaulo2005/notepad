@@ -24,7 +24,7 @@ const ToggleThemeButton = () => {
           </DropdownMenuItem>
         </span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent side="left" className="mr-2">
         <DropdownMenuCheckboxItem
           checked={theme === "light"}
           onClick={() => setTheme("light")}
