@@ -1,21 +1,41 @@
-type GetNotesResponse = {
-  error:
-    | string
-    | {
-        id: string;
-        title: string;
-        content: string;
-        userId: string;
-        createdAt: Date;
-        updatedAt: Date;
-      }[];
-};
+"use server";
 
-const getNotes = async (): Promise<GetNotesResponse> => {
-  const response = await fetch("/api/note");
-  const data = await response.json();
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-  return data;
+const getNotes = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    throw new Error("Usuário não autenticado");
+  }
+
+  if (!session.user?.email) {
+    throw new Error("Email não encontrado na sessão");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+
+  if (!user) {
+    throw new Error("Usuário não encontrado");
+  }
+
+  const notes = await prisma.note.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  if (!notes) {
+    throw new Error("Notas não encontradas");
+  }
+
+  return { notes };
 };
 
 export { getNotes };
