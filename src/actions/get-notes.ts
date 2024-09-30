@@ -27,6 +27,9 @@ const getNotes = async () => {
       where: {
         userId: user.id,
       },
+      orderBy: {
+        createdAt: "desc",
+      }
     });
 
     if (!notes) {
@@ -34,7 +37,7 @@ const getNotes = async () => {
     }
 
     if (notes.length === 0) {
-      throw new Error("Nenhuma nota encontrada");
+      console.log("Nenhuma nota encontrada");
     }
 
     return { notes }
