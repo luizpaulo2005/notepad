@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider, QueryProvider, ThemeProvider } from "@/app/providers";
 import { Navbar } from "@/components/navbar/navbar";
 import { client } from "@/lib/postgres-client";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -35,6 +36,7 @@ export default function RootLayout({
             <body className="antialiased !p-4 min-h-screen min-w-screen">
               <Navbar />
               {children}
+              <Toaster richColors />
             </body>
           </ThemeProvider>
         </QueryProvider>
