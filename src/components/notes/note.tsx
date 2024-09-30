@@ -9,8 +9,7 @@ interface NoteProps {
   title: string;
   content: string;
   userId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
 }
 
 const Note = ({ title, content, createdAt }: NoteProps) => {
