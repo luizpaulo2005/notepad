@@ -34,6 +34,7 @@ type CreateNote = z.infer<typeof createNoteSchema>;
 
 const CreateNoteDialog = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const {
@@ -54,8 +55,9 @@ const CreateNoteDialog = () => {
       await createNote({ title, content });
 
       toast.success("Nota adicionada com sucesso");
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
       reset();
+      setIsDialogOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
     } catch (error) {
       toast.error("Erro ao adicionar nota");
       console.error(error);
@@ -65,7 +67,7 @@ const CreateNoteDialog = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger className="fixed right-4 bottom-4">
         <Button className="flex items-center gap-2">
           <Plus className="size-4" />
