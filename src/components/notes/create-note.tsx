@@ -64,7 +64,7 @@ const CreateNoteDialog = () => {
 
   return (
     <Dialog>
-      <DialogTrigger className="absolute right-4 bottom-4">
+      <DialogTrigger className="fixed right-4 bottom-4">
         <Button className="flex items-center gap-2">
           <Plus className="size-4" />
           Adicionar nota
