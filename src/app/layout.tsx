@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider, ThemeProvider } from "@/app/providers";
+import { Navbar } from "@/components/navbar/navbar";
+import { client } from "@/lib/postgres-client";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,11 +14,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const checkPostgresConnection = async () => {
+    try {
+      await client.connect();
+      console.log("Conexão bem-sucedida ao PostgreSQL!");
+    } catch (error) {
+      console.log(`Erro ao conectar ao PostgreSQL: ${error}`);
+    } finally {
+      await client.end();
+    }
+  };
+
+  checkPostgresConnection();
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <AuthProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <body className="antialiased">{children}</body>
+          <body className="antialiased !p-4">
+            <Navbar />
+            {children}
+          </body>
         </ThemeProvider>
       </AuthProvider>
     </html>
