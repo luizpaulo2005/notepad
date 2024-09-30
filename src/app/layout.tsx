@@ -29,18 +29,18 @@ export default function RootLayout({
   checkPostgresConnection();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <AuthProvider>
-        <QueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <body className="antialiased !p-4 min-h-screen min-w-screen">
-              <Navbar />
-              {children}
-              <Toaster richColors />
-            </body>
-          </ThemeProvider>
-        </QueryProvider>
-      </AuthProvider>
-    </html>
+      <html lang="en" suppressHydrationWarning>
+        <AuthProvider>
+          <QueryProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <body className="antialiased !p-4 min-h-screen min-w-screen">
+                <Navbar />
+                {children}
+                <Toaster richColors />
+              </body>
+            </ThemeProvider>
+          </QueryProvider>
+        </AuthProvider>
+      </html>
   );
 }
