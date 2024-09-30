@@ -47,3 +47,4 @@ const getNotes = async (req: NextRequest) => {
 };
 
 export { getNotes as GET };
+ 
