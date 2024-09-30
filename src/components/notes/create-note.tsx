@@ -40,6 +40,7 @@ const CreateNoteDialog = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<CreateNote>({
     resolver: zodResolver(createNoteSchema),
   });
@@ -54,6 +55,7 @@ const CreateNoteDialog = () => {
 
       toast.success("Nota adicionada com sucesso");
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+      reset();
     } catch (error) {
       toast.error("Erro ao adicionar nota");
       console.error(error);
