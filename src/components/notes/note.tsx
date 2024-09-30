@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import ptBR from "dayjs/locale/pt-br";
 import { DeleteNote } from "./delete-note";
+import { UpdateNote } from "./update-note";
 
 dayjs.extend(relativeTime);
 dayjs.locale(ptBR);
@@ -28,7 +29,8 @@ const Note = ({ id, title, content, createdAt }: NoteProps) => {
         <p className="text-xs dark:text-gray-400">
           Criado {dayjs().to(createdAt)}
         </p>
-        <div>
+        <div className="flex items-center gap-2">
+          <UpdateNote />
           <DeleteNote id={id} />
         </div>
         </div>
