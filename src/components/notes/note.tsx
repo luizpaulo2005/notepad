@@ -12,10 +12,10 @@ interface NoteProps {
   title: string;
   content: string;
   userId: string;
-  createdAt: Date;
+  updatedAt: Date;
 }
 
-const Note = ({ id, title, content, createdAt }: NoteProps) => {
+const Note = ({ id, title, content, updatedAt }: NoteProps) => {
   return (
     <div className="min-w-64 w-full max-w-96 max-h-[400px] flex flex-col gap-4">
       <div className="bg-zinc-300 dark:bg-zinc-800 h-56 p-4 rounded-lg shadow-md flex flex-col justify-between">
@@ -27,7 +27,7 @@ const Note = ({ id, title, content, createdAt }: NoteProps) => {
         </div>
         <div className="flex items-center justify-between gap-2">
           <p className="text-xs dark:text-gray-400">
-            Criado {dayjs().to(createdAt)}
+            Última modificação {dayjs().to(updatedAt)}
           </p>
           <div className="flex items-center gap-2">
             <UpdateNote id={id} title={title} content={content} />
