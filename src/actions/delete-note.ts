@@ -33,17 +33,17 @@ const deleteNote = async (id: string) => {
       throw new Error("Nota não encontrada");
     }
 
-    const noteD = await prisma.note.delete({
+    const deletedNote = await prisma.note.delete({
       where: {
         id: note.id,
       },
     });
 
-    if (!noteD) {
+    if (!deletedNote) {
       throw new Error("Nota não encontrada");
     }
 
-    return { noteD };
+    return { deletedNote };
   } catch (err) {
     throw new Error(`Erro ao deletar nota: ${err}`);
   }
