@@ -10,7 +10,9 @@ const getUser = async () => {
         return null
     }
 
-    return session.user
+    const user = session.user
+
+    return user
 }
 
 export { getUser }
