@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 export const metadata: Metadata = {
   title: "note.pad",
   description: "your personal note-taking app",
+  icons: [],
 };
 
 export default function RootLayout({
@@ -29,18 +30,21 @@ export default function RootLayout({
   checkPostgresConnection();
 
   return (
-      <html lang="en" suppressHydrationWarning>
-        <AuthProvider>
-          <QueryProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <body className="relative antialiased !p-4 min-h-screen min-w-screen">
-                <Navbar />
-                {children}
-                <Toaster richColors />
-              </body>
-            </ThemeProvider>
-          </QueryProvider>
-        </AuthProvider>
-      </html>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/icon.png" />
+      </head>
+      <AuthProvider>
+        <QueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <body className="relative antialiased !p-4 min-h-screen min-w-screen">
+              <Navbar />
+              {children}
+              <Toaster richColors />
+            </body>
+          </ThemeProvider>
+        </QueryProvider>
+      </AuthProvider>
+    </html>
   );
 }
