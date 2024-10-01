@@ -2,8 +2,7 @@
 
 import { z } from "zod";
 import { prisma } from "@/lib/prisma"; // ou qualquer outro banco de dados que você esteja usando
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getUser } from "@/actions/get-user";
 
 const createNoteSchema = z.object({
   title: z.string().nonempty("O campo título não pode ser vazio").max(32),
@@ -16,16 +15,16 @@ const createNoteSchema = z.object({
 type CreateNote = z.infer<typeof createNoteSchema>;
 
 const createNote = async (data: CreateNote) => {
-  const session = await getServerSession(authOptions);
+  const sessionUser = await getUser();
 
-  if (!session) {
-    throw new Error("Usuário não autenticado");
+  if (!sessionUser) {
+    throw new Error("Usuário não encontrado");
   }
 
   const user = await prisma.user.findUnique({
     where: {
-      // @ts-expect-error - typescript não reconhece o campo email
-      email: session.user.email,
+      // @ts-expect-error - type
+      email: sessionUser.email,
     },
   });
 
