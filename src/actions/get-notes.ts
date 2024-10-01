@@ -1,26 +1,25 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getUser } from "@/actions/get-user";
 
 const getNotes = async () => {
   try {
-    const session = await getServerSession(authOptions);
+    const sessionUser = await getUser();
 
-    if (!session) {
-      throw new Error("Usuário não autenticado");
+    if (!sessionUser) {
+      throw new Error("Usuário não encontrado");
     }
 
     const user = await prisma.user.findUnique({
       where: {
-        // @ts-expect-error - type issue
-        email: session.user.email,
+        // @ts-expect-error - type
+        email: sessionUser.email,
       },
     });
 
     if (!user) {
-      throw new Error("Usuário não autenticado");
+      throw new Error("Usuário não encontrado");
     }
 
     const notes = await prisma.note.findMany({
@@ -29,7 +28,7 @@ const getNotes = async () => {
       },
       orderBy: {
         createdAt: "desc",
-      }
+      },
     });
 
     if (!notes) {
@@ -40,7 +39,7 @@ const getNotes = async () => {
       console.log("Nenhuma nota encontrada");
     }
 
-    return { notes }
+    return { notes };
   } catch (err) {
     throw new Error(`Erro ao buscar notas: ${err}`);
   }
