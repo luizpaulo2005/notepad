@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 dayjs.locale(ptBR);
 
 interface NoteProps {
-  id: string
+  id: string;
   title: string;
   content: string;
   userId: string;
@@ -26,13 +26,13 @@ const Note = ({ id, title, content, createdAt }: NoteProps) => {
           </p>
         </div>
         <div className="flex items-center justify-between gap-2">
-        <p className="text-xs dark:text-gray-400">
-          Criado {dayjs().to(createdAt)}
-        </p>
-        <div className="flex items-center gap-2">
-          <UpdateNote />
-          <DeleteNote id={id} />
-        </div>
+          <p className="text-xs dark:text-gray-400">
+            Criado {dayjs().to(createdAt)}
+          </p>
+          <div className="flex items-center gap-2">
+            <UpdateNote id={id} title={title} content={content} />
+            <DeleteNote id={id} />
+          </div>
         </div>
       </div>
     </div>
