@@ -42,7 +42,7 @@ const createNote = async (data: CreateNote) => {
     },
   });
 
-  return newNote;
+  return { newNote };
 };
 
 export { createNote };
